@@ -9,6 +9,8 @@
 #include <iostream>
 #include <iomanip>
 #include <QPixmap>
+#include <fstream> // <-- ADDED: Needed for std::ofstream
+#include <string>  // <-- ADDED: Needed for string operations (in dumpWindow)
 #include "CustomMatrix.h"
 
 using namespace std;
@@ -38,6 +40,11 @@ protected:
     void mousePressEvent(QMouseEvent *event) override;
 
 private:
+    // --- ADDED: Declarations for the helper functions ---
+    // Note: We use the C-style array syntax bool[3][3] for consistency with the .cpp definition
+    bool isNonEmpty(const bool local_window[3][3], double& score);
+    void dumpWindow(std::ofstream& logFile, int x, int y, const bool local_window[3][3], double score);
+
     // A vector to store all the points drawn by the user
     QVector<QPoint> m_points;
 
